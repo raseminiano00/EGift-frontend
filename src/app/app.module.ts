@@ -1,3 +1,5 @@
+import { OrderListService } from './_shared/services/order-list.service';
+import { ProductSelectionService } from './_shared/services/product-selection.service';
 import { NewOrderService } from './_shared/services/new-order.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -16,6 +18,8 @@ import { RecipientFormComponent } from './checkout/recipient-form/recipient-form
 import { CheckoutFormComponent } from './checkout/checkout-form/checkout-form.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { OrderListComponent } from './order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,9 @@ import { FormsModule } from '@angular/forms';
     SenderFormComponent,
     RecipientFormComponent,
     CheckoutFormComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    PageNotFoundComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,7 @@ import { FormsModule } from '@angular/forms';
     MatSliderModule,
     FormsModule
   ],
-  providers: [MerchantService, NewOrderService],
+  providers: [MerchantService, NewOrderService, ProductSelectionService, OrderListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

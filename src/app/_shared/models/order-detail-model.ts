@@ -8,6 +8,6 @@ export class OrderDetail{
     public senderName: string;
     public senderEmail: string;
     public senderContactNumber: number;
-    public additionalMes: string;
+    public additionalMessage: string;
     public isSuccess: boolean;
 }

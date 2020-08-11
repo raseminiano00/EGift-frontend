@@ -2,6 +2,7 @@ import { MerchantService } from './../_shared/services/merchant.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Merchants } from '../_shared/models/merchant-model';
 import { ParentComponentApi } from '../app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-merchant',
@@ -14,7 +15,7 @@ export class MerchantComponent implements OnInit {
   merchants: any;
   @Input() parent: ParentComponentApi;
 
-  constructor(private merchantService: MerchantService ) {
+  constructor(private merchantService: MerchantService , private router: Router) {
 
   }
 
@@ -30,8 +31,8 @@ export class MerchantComponent implements OnInit {
     });
   }
 
-  SelectProduct(merchantSlug: string): void{
-    this.parent.parentMethod(merchantSlug);
+  SelectMerchant(merchantSlug: string): void{
+    this.router.navigate(['merchant/', merchantSlug]);
   }
 
 }

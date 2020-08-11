@@ -1,7 +1,9 @@
+import { ProductSelectionService } from './../_shared/services/product-selection.service';
 import { Product } from './../_shared/models/product-model';
 import { ParentComponentApi } from './../app.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { MerchantProductService } from '../_shared/services/merchant-product.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-selection',
@@ -15,7 +17,10 @@ export class ProductSelectionComponent implements OnInit {
   apiData: any;
   products: any;
   merchantName: string;
-  constructor(private merchantProductService: MerchantProductService) { }
+  constructor(private merchantProductService: MerchantProductService, private productSelectService: ProductSelectionService,
+              private activatedRouter: ActivatedRoute, private router: Router) {
+    this.merchantSlug = this.activatedRouter.snapshot.params.slug;
+   }
 
   ngOnInit(): void {
     this.LoadProducts();
@@ -29,8 +34,10 @@ export class ProductSelectionComponent implements OnInit {
         this.merchantName = this.apiData.merchantName;
       });
   }
+
   ToOrder(selectedProduct: Product): void{
-    this.toOrderForm.parentMethod(selectedProduct);
+    this.productSelectService.SetSelectedProduct(selectedProduct);
+    this.router.navigate(['new-order/']);
   }
 
 }

@@ -1,6 +1,9 @@
+import { ProductSelectionService } from './../../_shared/services/product-selection.service';
+import { NewOrderService } from './../../_shared/services/new-order.service';
 import { OrderDetail } from './../../_shared/models/order-detail-model';
 import { Product } from './../../_shared/models/product-model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-form',
@@ -9,18 +12,34 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CheckoutFormComponent implements OnInit {
 
-  @Input() selectedProduct: Product;
-  @Input() orderDetail: OrderDetail;
-  @Output() showOrderForm = new EventEmitter();
-  constructor() {
+  selectedProduct: Product;
+  orderDetail: OrderDetail;
+  isLoading = false;
+
+  constructor(private newOrderService: NewOrderService, private productSelectService: ProductSelectionService,
+              private router: Router) {
+
+                this.selectedProduct = this.productSelectService.selectedProductInstance;
+                this.orderDetail = this.productSelectService.inputOrderDetail;
+
+                if (this.selectedProduct == null){
+                  this.router.navigate(['merchants/']);
+                }
   }
 
   ngOnInit(): void {
   }
+
   GoBack(): void{
-    this.showOrderForm.emit();
+    this.productSelectService.SetSelectedProduct(this.selectedProduct);
+    this.productSelectService.SetOrderDetail(this.orderDetail);
+    this.router.navigate(['new-order']);
   }
+
   CheckOut(): void{
-    console.log('checkout');
+    this.isLoading = true;
+    this.newOrderService.NewOrder(this.orderDetail).subscribe(data => {
+      this.isLoading = false;
+    });
   }
 }

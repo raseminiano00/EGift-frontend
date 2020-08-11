@@ -1,30 +1,80 @@
 <div *ngIf="orderForm">
-    <div class="card">
-        <div class="card-body">
-            <div class="container row">
-                <app-product-detail class="col-sm-6"[product]="selectedProduct">
-                </app-product-detail>
-                <div class="mt-2">
-                    <div class="form-group col-sm-6">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" class="form-control" id="quantity" (change)="QuantityChange()" [(ngModel)]="orderedQuantity" [ngModelOptions]="{standalone: true}" 
-                        min="0" required>
+    <form #orderForm="ngForm" (ngSubmit)="PlaceOrder()" autocomplete="off">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="container">
+                    <h3 class="card-title">Order Product</h3>
+                </div>
+
+                <div class="container row">
+                    <app-product-detail class="col-sm-6"[product]="selectedProduct">
+                    </app-product-detail>
+                    <div class="mt-2">
+                        <div class="form-group col-sm-6">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" (change)="QuantityChange()" [(ngModel)]="orderedQuantity" name="orderedQuantity" 
+                            min="0" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="container row">
+                    <h5 class="col-md-12">Total Order Amount</h5>
+                    <p class="col-md-12">{{totalOrderedAmount | currency:'Php '}}</p>
+                </div>
+            </div>  
+        </div>
+            <div class="card col col-md-12 mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Sender Details</h5>
+                    <div class="row">
+                        <div class="form-group col col-md-6 col-sm-12">
+                            <label for="senderNameInput">Name</label>
+                            <input type="text" class="form-control" id="senderNameInput" placeholder="Enter Name" [(ngModel)]="orderDetail.senderName" name="senderName" 
+                            #senderName="ngModel" required pattern="^[a-zA-Z ,.ë]+$">
+                        </div>
+                        <div class="form-group col col-md-6 col-sm-12">
+                            <label for="senderEmail">Email address</label>
+                            <input type="email" class="form-control" id="senderEmail" aria-describedby="emailHelp" [(ngModel)]="orderDetail.senderEmail" name="senderEmail"  #senderEmail="ngModel" placeholder="Enter email" required pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col col-md-6 col-sm-12">
+                            <label for="senderContactNumber">Contact Number</label>
+                            <input type="text" class="form-control" id="senderContactNumber" placeholder="Enter Contact Number" [(ngModel)]="orderDetail.senderContactNumber" #senderContactNumber="ngModel" name="senderContactNumber"  required pattern="^[0-9]+$">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="container row">
-            <h5 class="col-md-12">Total Order Amount</h5>
-            <p class="col-md-12">{{totalOrderedAmount | currency:'Php '}}</p>
+            <div class="card col col-sm-12 mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Recipient Details</h5>
+                    <div class="row">
+                        <div class="form-group col col-md-6 col-sm-12 col-xs-12">
+                            <label for="recipientName">Name</label>
+                            <input type="text" class="form-control" id="recipientName" [(ngModel)]="orderDetail.recipientName" name="name" #name="ngModel" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col col-md-6 col-sm-12 col-xs-12">
+                            <label for="recipientEmail">Email address</label>
+                            <input type="email" class="form-control" id="recipientEmail" [(ngModel)]="orderDetail.recipientEmail" name="recipientEmail" #recipientEmail="ngModel" aria-describedby="emailHelp" placeholder="Enter email" required  pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="form-group col col-md-6 col-sm-12 col-xs-12">
+                            <label for="recipientContactNumber">Contact Number</label>
+                            <input type="text" class="form-control" id="recipientContactNumber" [(ngModel)]="orderDetail.recipientContactNumber" name="contactNum" #contactNum="ngModel" placeholder="Enter Contact Number" required pattern="^[0-9]+$">
+                        </div>
+                        <div class="form-group col col-md-6 col-sm-12 col-xs-12">
+                            <label for="addMessage">Dedication</label>
+                            <textarea class="form-control" id="addMessage" [(ngModel)]="orderDetail.additionalMessage" name="dedication" rows="3" placeholder="Enter Dedication Message"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>  
-    </div>
-    <div class="row">
-        <app-sender-form #sender class="col col-md-6" [orderDetail]="orderDetail"></app-sender-form>
-        <app-recipient-form  #recipient class="col col-md-6" [orderDetail]="orderDetail"></app-recipient-form>
         <div class="mt-1 mb-2 col col-md-12 d-flex flex-row-reverse">
-            <button class="btn btn-primary" (click)="PlaceOrder()">Place Order</button>
+            <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Place Order</button>
         </div>
-    </div>
+    </form>
 </div>
 <div *ngIf="checkOutForm">
     <app-checkout-form #checkoutForm [selectedProduct]="selectedProduct" [orderDetail]="orderDetail" (showOrderForm)="ShowOrderForm()"></app-checkout-form>

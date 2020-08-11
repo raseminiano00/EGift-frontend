@@ -12,7 +12,8 @@
           </ul>
         </div>
       </nav>
-      <app-merchant *ngIf="MerchantScreen" [parent]="getParentApi()"></app-merchant>
-      <app-product-selection *ngIf="ProductSelectionScreen" [merchantSlug]="merchantSlug" [toOrderForm]="OrderFormDelegate()"></app-product-selection>
-      <app-checkout *ngIf="OrderFormScreen" [selectedProduct]="selectedProduct"></app-checkout>
+      <router-outlet></router-outlet>
+      <!-- <app-merchant *ngIf="MerchantScreen" [parent]="getParentApi()"></app-merchant> -->
+      <!-- <app-product-selection *ngIf="ProductSelectionScreen" [merchantSlug]="merchantSlug" [toOrderForm]="OrderFormDelegate()"></app-product-selection> -->
+      <!-- <app-checkout *ngIf="OrderFormScreen" [selectedProduct]="selectedProduct"></app-checkout> -->
 </div>
