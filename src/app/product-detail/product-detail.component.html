@@ -1,0 +1,8 @@
+<div class="mt-3">
+      <h5>{{product.name}}</h5>
+      <p>{{product.description}}</p>
+      <div class="row">
+      <p class="col col-sm-6">{{product.price | currency:'Php '}}</p>
+      <p class="col col-sm-6" *ngIf="product.quantity>0">X {{product.quantity}}</p>
+      </div>
+</div>

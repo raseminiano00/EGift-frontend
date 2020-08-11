@@ -1,0 +1,31 @@
+<div *ngIf="orderForm">
+    <div class="card">
+        <div class="card-body">
+            <div class="container row">
+                <app-product-detail class="col-sm-6"[product]="selectedProduct">
+                    
+                </app-product-detail>
+                <div class="mt-2">
+                    <div class="form-group col-sm-6">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" (change)="QuantityChange()" [(ngModel)]="orderedQuantity" [ngModelOptions]="{standalone: true}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="container row">
+            <h5 class="col-md-12">Total Order Amount</h5>
+            <p class="col-md-12">{{totalOrderedAmount | currency:'Php '}}</p>
+            </div>
+        </div>  
+    </div>
+    <div class="row">
+        <app-sender-form #sender class="col col-md-6" ></app-sender-form>
+        <app-recipient-form  #recipient class="col col-md-6"></app-recipient-form>
+        <div class="mt-1 mb-2 col col-md-12 d-flex flex-row-reverse">
+            <button type="submit" class="btn btn-primary" (click)="PlaceOrder()">Place order</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="checkOutForm">
+    <app-checkout-form #checkoutForm [selectedProduct]="selectedProduct" [orderDetail]="orderDetail" (showOrderForm)="ShowOrderForm()"></app-checkout-form>
+</div>
