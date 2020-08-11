@@ -1,4 +1,5 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { OrderDetail } from './../../_shared/models/order-detail-model';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,17 +12,26 @@ export class SenderFormComponent implements OnInit {
   senderName: string;
   senderEmail: string;
   senderContactNum: number;
-
   senderDetails: any;
-  constructor() { }
+  @ViewChild('senderForm') form: any;
+  @Input() orderDetail: OrderDetail;
+
+  constructor() {
+    this.orderDetail = new OrderDetail();
+  }
+
   ngOnInit(): void {
   }
-  GetSenderDetail(): any{
-    this.senderDetails = [
-      this.senderName,
-      this.senderEmail,
-      this.senderContactNum
-    ];
-    return this.GetSenderDetail;
+
+  ValidateDetail(): boolean{
+    if (this.form.valid){
+      return true;
+    }
+    return false;
   }
+
+  GetSenderDetails(): any{
+    return this.orderDetail;
+  }
+
 }

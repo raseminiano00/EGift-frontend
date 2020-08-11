@@ -3,12 +3,12 @@
         <div class="card-body">
             <div class="container row">
                 <app-product-detail class="col-sm-6"[product]="selectedProduct">
-                    
                 </app-product-detail>
                 <div class="mt-2">
                     <div class="form-group col-sm-6">
                         <label for="quantity">Quantity</label>
-                        <input type="number" class="form-control" id="quantity" (change)="QuantityChange()" [(ngModel)]="orderedQuantity" [ngModelOptions]="{standalone: true}" required>
+                        <input type="number" class="form-control" id="quantity" (change)="QuantityChange()" [(ngModel)]="orderedQuantity" [ngModelOptions]="{standalone: true}" 
+                        min="0" required>
                     </div>
                 </div>
             </div>
@@ -19,10 +19,10 @@
         </div>  
     </div>
     <div class="row">
-        <app-sender-form #sender class="col col-md-6" ></app-sender-form>
-        <app-recipient-form  #recipient class="col col-md-6"></app-recipient-form>
+        <app-sender-form #sender class="col col-md-6" [orderDetail]="orderDetail"></app-sender-form>
+        <app-recipient-form  #recipient class="col col-md-6" [orderDetail]="orderDetail"></app-recipient-form>
         <div class="mt-1 mb-2 col col-md-12 d-flex flex-row-reverse">
-            <button type="submit" class="btn btn-primary" (click)="PlaceOrder()">Place order</button>
+            <button class="btn btn-primary" (click)="PlaceOrder()">Place Order</button>
         </div>
     </div>
 </div>

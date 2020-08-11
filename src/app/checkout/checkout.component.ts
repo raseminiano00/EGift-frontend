@@ -35,6 +35,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
     this.orderedQuantity = 1;
     this.checkOutForm = false;
     this.orderForm = true;
+    this.orderDetail = new OrderDetail();
    }
    ngAfterViewInit(): void{
    }
@@ -49,20 +50,32 @@ export class CheckoutComponent implements OnInit, AfterViewInit {
   }
 
   PlaceOrder(): void{
+
+    if (this.recipientComponent.ValidateDetail() === false ||
+    this.senderComponent.ValidateDetail() === false){
+      return;
+    }
+
+    const senderDetail = this.senderComponent.GetSenderDetails();
+    const recipientDetail = this.recipientComponent.GetRecipientDetails();
     const orderDetail = new OrderDetail();
-    orderDetail.senderName = this.senderComponent.senderName;
-    orderDetail.senderEmail = this.senderComponent.senderEmail;
-    orderDetail.senderContactNumber = this.senderComponent.senderContactNum;
-    orderDetail.recipientName = this.recipientComponent.name;
-    orderDetail.recipientEmail = this.recipientComponent.email;
-    orderDetail.recipientContactNumber = this.recipientComponent.contactNum;
-    orderDetail.additionalMes = this.recipientComponent.dedication;
+
+    orderDetail.senderName = senderDetail.senderName;
+    orderDetail.senderEmail = senderDetail.senderEmail;
+    orderDetail.senderContactNumber = senderDetail.senderContactNumber;
+    orderDetail.recipientName = recipientDetail.recipientName;
+    orderDetail.recipientEmail = recipientDetail.recipientEmail;
+    orderDetail.recipientContactNumber = recipientDetail.recipientContactNumber;
+    orderDetail.additionalMes = recipientDetail.additionalMes;
     orderDetail.productId = this.selectedProduct.id;
     orderDetail.quantity = this.orderedQuantity;
     orderDetail.totalOrderAmount = this.totalOrderedAmount;
     this.selectedProduct.quantity = this.orderedQuantity;
     this.orderDetail = orderDetail;
-    console.log(orderDetail);
+    this.ShowCheckOutForm();
+  }
+
+  ShowCheckOutForm(): void{
     this.checkOutForm = true;
     this.orderForm = false;
   }
