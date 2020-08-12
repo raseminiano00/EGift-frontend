@@ -3,7 +3,7 @@ import { NewOrderService } from './../../_shared/services/new-order.service';
 import { OrderDetail } from './../../_shared/models/order-detail-model';
 import { Product } from './../../_shared/models/product-model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router';import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout-form',
@@ -17,7 +17,7 @@ export class CheckoutFormComponent implements OnInit {
   isLoading = false;
 
   constructor(private newOrderService: NewOrderService, private productSelectService: ProductSelectionService,
-              private router: Router) {
+              private router: Router, private toastr: ToastrService) {
 
                 this.selectedProduct = this.productSelectService.selectedProductInstance;
                 this.orderDetail = this.productSelectService.inputOrderDetail;
@@ -39,7 +39,24 @@ export class CheckoutFormComponent implements OnInit {
   CheckOut(): void{
     this.isLoading = true;
     this.newOrderService.NewOrder(this.orderDetail).subscribe(data => {
+
       this.isLoading = false;
-    });
+
+      if (data.isSuccess === false){
+        this.ShowErrorNotification('Check Out', 'Error on finalizing your order');
+        return;
+      }
+
+      this.ShowNotification('Check Out', 'Your order has been placed!');
+
+      });
+  }
+
+  ShowNotification(title: string, message: string): void {
+    this.toastr.success(message, title);
+  }
+
+  ShowErrorNotification(title: string, message: string): void {
+    this.toastr.error(message, title);
   }
 }

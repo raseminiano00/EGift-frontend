@@ -20,6 +20,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { OrderListComponent } from './order-list/order-list.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [MerchantService, NewOrderService, ProductSelectionService, OrderListService],
   bootstrap: [AppComponent]
