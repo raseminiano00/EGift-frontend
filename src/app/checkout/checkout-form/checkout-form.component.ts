@@ -48,7 +48,6 @@ export class CheckoutFormComponent implements OnInit {
       }
 
       this.ShowNotification('Check Out', 'Your order has been placed!');
-
       });
   }
 
