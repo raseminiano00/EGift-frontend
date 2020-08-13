@@ -1,0 +1,27 @@
+<div  *ngIf="hasError === false">
+  <ng-container *ngFor="let order of orders | paginate: {id: 'orders_pagination',
+                        itemsPerPage: itemsPerPage,
+                        currentPage: page,
+                        totalItems:ordersLength}">
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col col-md-6">
+            <p class="card-text">Date Ordered: {{order.dateOrdered | date:'medium' }}</p>
+            <h5 class="card-title">Sender: {{order.senderName}}</h5>
+            <p class="card-text">Merchant: {{order.merchantName}}</p>
+          </div>
+          <div class="col col-md-6 d-flex align-items-center justify-content-end">
+            <a class="btn btn-info" (click)="ShowOrderDetail(order.id)">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="d-flex justify-content-center">
+    <pagination-controls id="orders_pagination" maxsize="5" directionLinks="true" (pageChange)="page = $event" ></pagination-controls>
+  </div>
+</div>
+
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+<app-error-response *ngIf="hasError"></app-error-response>

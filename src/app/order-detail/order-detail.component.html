@@ -1,0 +1,53 @@
+<div *ngIf="hasError === false">
+    <div class="row">
+        <div class="mt-1 mb-2 col col-md-12 d-flex justify-content-between">
+            <button type="submit" class="btn btn-danger"  routerLink="/orders" >Back</button>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-around">
+        <div class="card col col-md-12 mt-3">
+            <div class="card-body">
+                <div>
+                    <h5 class="card-title">Order Details</h5>
+                </div>
+            <div class="container row">
+                <div class="col col-sm-4">
+                    <h6 class="card-text">Details</h6>
+                    <p class="card-text " >Date Ordered: {{orderDetail.dateOrdered | date:'medium' }}</p>
+                    <p class="card-text ">Dedication: {{orderDetail.additionalMessage}}</p>
+                </div>
+                <div class="col col-sm-4">
+                    <h6 class="card-text">Sender</h6>
+                    <p class="card-text " >Name: {{orderDetail.senderName}}</p>
+                    <p class="card-text " >Email Address:  {{orderDetail.senderEmail}}</p>
+                    <p class="card-text ">Contact No.: {{orderDetail.senderContactNumber}} </p>
+                </div>
+                <div class="col col-sm-4">
+                    <h6 class="card-text">Recipient</h6>
+                    <p class="card-text ">Name:  {{orderDetail.recipientName}}</p>
+                    <p class="card-text ">Email Address: {{orderDetail.recipientEmail}}</p>
+                    <p class="card-text ">Contact No.: {{orderDetail.recipientContactNumber}}</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="card col col-md-12 mt-3">
+            <div class="card-body">
+                <div>
+                    <h5 class="card-title">Purchased Product</h5>
+                </div>
+                <div class="container row">
+                    <app-product-detail class="col-sm-6" [product]="orderDetail.orderProductData">
+                        
+                    </app-product-detail>
+                </div>
+                <div class="container row">
+                    <h6 class="col-md-12">Total Order Amount</h6>
+                    <p class="col-md-12">{{orderDetail.totalOrderedAmount | currency:'Php '}}</p>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+<app-error-response *ngIf="hasError"></app-error-response>
