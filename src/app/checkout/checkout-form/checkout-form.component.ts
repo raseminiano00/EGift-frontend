@@ -15,6 +15,7 @@ export class CheckoutFormComponent implements OnInit {
   selectedProduct: Product;
   orderDetail: OrderDetail;
   isLoading = false;
+  hasError = false;
 
   constructor(private newOrderService: NewOrderService, private productSelectService: ProductSelectionService,
               private router: Router, private toastr: ToastrService) {
@@ -36,21 +37,20 @@ export class CheckoutFormComponent implements OnInit {
     this.router.navigate(['new-order']);
   }
 
-  CheckOut(): void{
+  // tslint:disable-next-line: typedef
+  async CheckOut(){
     this.isLoading = true;
     this.orderDetail.quantity = Number(this.orderDetail.quantity);
-    this.newOrderService.NewOrder(this.orderDetail).subscribe(data => {
-
-      this.isLoading = false;
-      console.log(data);
-      if (data.isSuccess === false){
-        this.ShowErrorNotification('Check Out', 'Error on finalizing your order');
-        return;
-      }
-
+    try{
+      const response =  await this.newOrderService.NewOrder(this.orderDetail);
       this.ShowNotification('Check Out', 'Your order has been placed!');
       this.router.navigate(['orders']);
-      });
+    }
+    catch (err){
+      this.ShowErrorNotification('Check Out', 'Error on finalizing your order');
+      this.hasError = true;
+    }
+    this.isLoading = false;
   }
 
   ShowNotification(title: string, message: string): void {

@@ -13,6 +13,7 @@ export class MerchantComponent implements OnInit {
   listData: any;
   merchants: any;
   isLoading = true;
+  hasError = false;
 
   constructor(private merchantService: MerchantService , private router: Router) {
 
@@ -26,12 +27,12 @@ export class MerchantComponent implements OnInit {
   async refreshMerchantList(){
     try{
       const response = await this.merchantService.GetMerchantList();
-      this.isLoading = false;
       this.merchants = response.data;
     }
-    catch(err){
-      this.router.navigate(['error-page']);
+    catch (err){
+      this.hasError = true;
     }
+    this.isLoading = false;
   }
 
   SelectMerchant(merchantSlug: string): void{

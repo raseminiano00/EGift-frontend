@@ -1,16 +1,20 @@
-<ng-container *ngFor="let merchant of merchants">
-  <div class="card mt-3">
-    <div class="card-body">
-      <div class="row">
-        <div class="col col-md-6">
-          <h5 class="card-title">{{merchant.name}}</h5>
-          <p class="card-text">{{merchant.address}}</p>
-        </div>
-        <div class="col col-md-6 d-flex align-items-center justify-content-end">
-          <a class="btn btn-primary" (click)="SelectMerchant(merchant.slug)">Place eGift</a>
+<div *ngIf="hasError === false">
+  <ng-container *ngFor="let merchant of merchants">
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col col-md-6">
+            <h5 class="card-title">{{merchant.name}}</h5>
+            <p class="card-text">{{merchant.address}}</p>
+          </div>
+          <div class="col col-md-6 d-flex align-items-center justify-content-end">
+            <a class="btn btn-primary" (click)="SelectMerchant(merchant.slug)">Place eGift</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
+</div>
 <app-loading-screen *ngIf="isLoading"></app-loading-screen>
+
+<app-error-response *ngIf="hasError"></app-error-response>

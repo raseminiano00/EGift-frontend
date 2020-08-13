@@ -15,6 +15,8 @@ export class ProductSelectionComponent implements OnInit {
   apiData: any;
   products: any;
   merchantName: string;
+  isLoading = true;
+
   constructor(private merchantProductService: MerchantProductService, private productSelectService: ProductSelectionService,
               private activatedRouter: ActivatedRoute, private router: Router) {
     this.merchantSlug = this.activatedRouter.snapshot.params.slug;
@@ -27,15 +29,13 @@ export class ProductSelectionComponent implements OnInit {
   // tslint:disable-next-line: typedef
   async LoadProducts(){
     try{
-    const response = await this.merchantProductService.GetMerchantProducts(this.merchantSlug);
-    console.log('response');
-    console.log(response);
-    this.apiData = response;
-    this.products = this.apiData.data;
-    this.merchantName = this.apiData.merchantName;
-    } 
-    catch{
-      console.log('catch');
+      const response = await this.merchantProductService.GetMerchantProducts(this.merchantSlug);
+      this.isLoading = false;
+      this.products = response.data;
+      this.merchantName = response.merchantName;
+    }
+    catch(err){
+      this.router.navigate(['error-page']);
     }
   }
 
