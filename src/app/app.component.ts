@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Product } from './_shared/models/product-model';
 import { Component } from '@angular/core';
 
@@ -13,45 +14,15 @@ export class AppComponent {
   OrderFormScreen = false;
   merchantSlug: string;
   selectedProduct: Product;
-  getParentApi(): ParentComponentApi {
-    return {
-      parentMethod: (merchantId) => {
-        this.ShowProuctSelection(merchantId);
-      }
-    }
-  }
 
-  OrderFormDelegate(): ParentComponentApi {
-    return {
-      parentMethod: (product) => {
-        this.ShowOrderForm(product);
-      }
-    }
+  constructor(private router: Router){
   }
-
 
   ShowMerchants(): void{
-    this.MerchantScreen = true;
-    this.ProductSelectionScreen = false;
-    this.OrderFormScreen = false;
+    this.router.navigate(['merchants']);
   }
 
-  public ShowProuctSelection(merchantSlug: string): void{
-    this.OrderFormScreen = false;
-    this.MerchantScreen = false;
-    this.ProductSelectionScreen = true;
-    this.merchantSlug = merchantSlug;
+  ShowOrders(): void{
+    this.router.navigate(['orders']);
   }
-
-  public ShowOrderForm(selectedProduct: Product): void{
-    this.OrderFormScreen = true;
-    this.MerchantScreen = false;
-    this.ProductSelectionScreen = false;
-    this.selectedProduct = selectedProduct;
-  }
-
-}
-
-export interface ParentComponentApi {
-  parentMethod: (string) => void;
 }

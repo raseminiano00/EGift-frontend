@@ -1,19 +1,19 @@
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">EGift</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <button class="btn btn-outline-success" type="button" (click) = "ShowMerchants()">Merchants</button>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <router-outlet></router-outlet>
-      <!-- <app-merchant *ngIf="MerchantScreen" [parent]="getParentApi()"></app-merchant> -->
-      <!-- <app-product-selection *ngIf="ProductSelectionScreen" [merchantSlug]="merchantSlug" [toOrderForm]="OrderFormDelegate()"></app-product-selection> -->
-      <!-- <app-checkout *ngIf="OrderFormScreen" [selectedProduct]="selectedProduct"></app-checkout> -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">EGift</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/merchants">Merchants <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/orders">Purchases <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <router-outlet></router-outlet>
 </div>

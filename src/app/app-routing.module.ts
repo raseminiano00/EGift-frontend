@@ -1,3 +1,5 @@
+import { ErrorResponseComponent } from './error-response/error-response.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { CheckoutFormComponent } from './checkout/checkout-form/checkout-form.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'new-order', component: CheckoutComponent},
   { path: 'check-out', component: CheckoutFormComponent},
   { path: 'orders', component: OrderListComponent},
+  { path: 'order/:id', component: OrderDetailComponent},
+  { path: 'error-page', component: ErrorResponseComponent},
   { path: '**', component: PageNotFoundComponent}
 ];
 

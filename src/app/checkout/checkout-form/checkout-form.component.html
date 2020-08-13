@@ -1,13 +1,20 @@
 <div *ngIf="isLoading == false">
+  <nav class="navbar sticky-top navbar-light bg-light">
+    <div class="mt-1 mb-2 col col-md-12 d-flex justify-content-between">
+      <button type="submit" class="btn btn-danger" (click)="GoBack()">Back</button>
+      <button type="submit" class="btn btn-success" (click)="CheckOut()">Check-out Order</button>
+    </div>
+  </nav>
   <div class="row d-flex justify-content-around">
         <div class="card col col-md-12 mt-3">
           <div class="card-body">
-              <div class="container row">
+              <h4 class="card-title">Selected Product</h4>
+              <div class=" row">
                   <app-product-detail class="col-sm-6" [product]="selectedProduct">
                       
                   </app-product-detail>
               </div>
-              <div class="container row">
+              <div class="row">
                 <h5 class="col-md-12">Total Order Amount</h5>
                 <p class="col-md-12">{{orderDetail.totalOrderAmount | currency:'Php '}}</p>
               </div>
@@ -19,28 +26,22 @@
           <div class="row">
             <div class="col col-sm-6">
               <h6 class="card-text">Sender</h6>
-              <p class="card-text ml-3" >Name: {{orderDetail.senderName}}</p>
-              <p class="card-text ml-3" >Email Address:  {{orderDetail.senderEmail}}</p>
-              <p class="card-text ml-3">Contact No.: {{orderDetail.senderContactNumber}} </p>
+              <p class="card-text " >Name: {{orderDetail.senderName}}</p>
+              <p class="card-text " >Email Address:  {{orderDetail.senderEmail}}</p>
+              <p class="card-text ">Contact No.: {{orderDetail.senderContactNumber}} </p>
             </div>
             <div class="col col-sm-6">
               <h6 class="card-text">Recipient</h6>
-              <p class="card-text ml-3">Name:  {{orderDetail.recipientName}}</p>
-              <p class="card-text ml-3">Email Address: {{orderDetail.recipientEmail}}</p>
-              <p class="card-text ml-3">Contact No.: {{orderDetail.recipientContactNumber}}</p>
-              <p class="card-text ml-3">Dedication: {{orderDetail.additionalMessage}}</p>
+              <p class="card-text ">Name:  {{orderDetail.recipientName}}</p>
+              <p class="card-text ">Email Address: {{orderDetail.recipientEmail}}</p>
+              <p class="card-text ">Contact No.: {{orderDetail.recipientContactNumber}}</p>
+              <p class="card-text ">Dedication: {{orderDetail.additionalMessage}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="mt-1 mb-2 col col-md-12 d-flex justify-content-between">
-        <button type="submit" class="btn btn-danger" (click)="GoBack()">Back</button>
-        <button type="submit" class="btn btn-success" (click)="CheckOut()">Check-out Order</button>
-    </div>
-    </div>
 </div>
-<div *ngIf="isLoading" id="overlay">
-  <div class="loader"></div>
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
 </div>

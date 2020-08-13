@@ -12,7 +12,16 @@ export class MerchantProductService {
 
   readonly apiUrl = 'https://localhost:44312/api';
 
-  GetMerchantProducts(merchantSlug: string): Observable<MerchantProducts>{
-    return this.http.get<MerchantProducts>(this.apiUrl + '/merchant/' + merchantSlug);
+  async GetMerchantProducts(merchantSlug: string): Promise<MerchantProducts>{
+
+    const promise: Promise<MerchantProducts> = new Promise((resolve, reject) => {
+        return this.http.get<MerchantProducts>(this.apiUrl + '/merchant/' + merchantSlug).subscribe(
+          response => {
+            resolve(response);
+        }, error => {
+            reject(error.error);
+        });
+    });
+    return promise;
   }
 }

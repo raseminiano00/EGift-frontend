@@ -1,7 +1,6 @@
 import { MerchantService } from './../_shared/services/merchant.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Merchants } from '../_shared/models/merchant-model';
-import { ParentComponentApi } from '../app.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 export class MerchantComponent implements OnInit {
   listData: any;
   merchants: any;
-  @Input() parent: ParentComponentApi;
+  isLoading = true;
 
   constructor(private merchantService: MerchantService , private router: Router) {
 
@@ -23,12 +22,16 @@ export class MerchantComponent implements OnInit {
     this.refreshMerchantList();
   }
 
-  refreshMerchantList(): void{
-    this.merchantService.GetMerchantList().subscribe(data  => {
-      this.listData = data;
-      this.merchants = this.listData.data;
-      console.log(this.listData.data);
-    });
+  // tslint:disable-next-line: typedef
+  async refreshMerchantList(){
+    try{
+      const response = await this.merchantService.GetMerchantList();
+      this.isLoading = false;
+      this.merchants = response.data;
+    }
+    catch(err){
+      this.router.navigate(['error-page']);
+    }
   }
 
   SelectMerchant(merchantSlug: string): void{

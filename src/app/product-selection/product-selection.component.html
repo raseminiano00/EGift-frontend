@@ -1,9 +1,11 @@
 <ng-container *ngFor="let product of products">
-  <div class="card">
+  <div class="card  mt-3">
     <div class="card-body">
-      <app-product-detail [product]="product"></app-product-detail>
-      <div class="mt-4">
-        <a class="btn btn-primary" (click)="ToOrder(product)">Order as eGift</a>
+      <div class="container row">
+        <app-product-detail class="col col-md-6" [product]="product"></app-product-detail>
+        <div class="col col-md-6 d-flex align-items-center justify-content-end">
+          <button class="btn btn-primary" (click)="ToOrder(product)">Order as eGift</button>
+        </div>
       </div>
     </div>
   </div>

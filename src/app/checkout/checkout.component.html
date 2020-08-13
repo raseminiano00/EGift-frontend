@@ -1,10 +1,16 @@
 <div *ngIf="orderForm">
     <form #orderForm="ngForm" (ngSubmit)="PlaceOrder()" autocomplete="off">
+        <nav class="navbar sticky-top navbar-light bg-light">
+            <div class="mt-1 mb-2 col col-md-12 d-flex justify-content-between">
+                    <button class="btn btn-danger" (click)="ToProducts()">Back to products</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Place Order</button>
+            </div>
+        </nav>
         <div class="card">
             <div class="card-body">
 
                 <div class="container">
-                    <h3 class="card-title">Order Product</h3>
+                    <h4 class="card-title">Selected Product</h4>
                 </div>
 
                 <div class="container row">
@@ -14,7 +20,8 @@
                         <div class="form-group col-sm-6">
                             <label for="quantity">Quantity</label>
                             <input type="number" class="form-control" id="quantity" (change)="QuantityChange()" [(ngModel)]="orderedQuantity" name="orderedQuantity" 
-                            min="0" required>
+                            min="1" type="orderedQuantity" required pattern="^[0-9]+$">
+                            <app-form-error-handling [control]="orderedQuantity"></app-form-error-handling>
                         </div>
                     </div>
                 </div>
@@ -31,17 +38,20 @@
                         <div class="form-group col col-md-6 col-sm-12">
                             <label for="senderNameInput">Name</label>
                             <input type="text" class="form-control" id="senderNameInput" placeholder="Enter Name" [(ngModel)]="orderDetail.senderName" name="senderName" 
-                            #senderName="ngModel" required pattern="^[a-zA-Z ,.ë]+$">
+                            type="senderName" #senderName="ngModel" required>
+                            <app-form-error-handling [control]="senderName"></app-form-error-handling>
                         </div>
                         <div class="form-group col col-md-6 col-sm-12">
                             <label for="senderEmail">Email address</label>
-                            <input type="email" class="form-control" id="senderEmail" aria-describedby="emailHelp" [(ngModel)]="orderDetail.senderEmail" name="senderEmail"  #senderEmail="ngModel" placeholder="Enter email" required pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                            <input type="email" class="form-control" id="senderEmail" aria-describedby="emailHelp" [(ngModel)]="orderDetail.senderEmail" name="senderEmail"   type="senderEmail" #senderEmail="ngModel" placeholder="Enter email" required pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                            <app-form-error-handling [control]="senderEmail"></app-form-error-handling>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col col-md-6 col-sm-12">
                             <label for="senderContactNumber">Contact Number</label>
-                            <input type="text" class="form-control" id="senderContactNumber" placeholder="Enter Contact Number" [(ngModel)]="orderDetail.senderContactNumber" #senderContactNumber="ngModel" name="senderContactNumber"  required pattern="^[0-9]+$">
+                            <input type="text" class="form-control" id="senderContactNumber" placeholder="Enter Contact Number" [(ngModel)]="orderDetail.senderContactNumber" type="senderContactNumber" #senderContactNumber="ngModel" name="senderContactNumber"  required pattern="^[0-9]+$">
+                            <app-form-error-handling [control]="senderContactNumber"></app-form-error-handling>
                         </div>
                     </div>
                 </div>
@@ -52,17 +62,20 @@
                     <div class="row">
                         <div class="form-group col col-md-6 col-sm-12 col-xs-12">
                             <label for="recipientName">Name</label>
-                            <input type="text" class="form-control" id="recipientName" [(ngModel)]="orderDetail.recipientName" name="name" #name="ngModel" placeholder="Enter Name" required>
+                            <input type="text" class="form-control" id="recipientName" [(ngModel)]="orderDetail.recipientName" name="recipientName" #name="ngModel" placeholder="Enter Name" type="recipientName" required>
+                            <app-form-error-handling [control]="recipientName"></app-form-error-handling>
                         </div>
                         <div class="form-group col col-md-6 col-sm-12 col-xs-12">
                             <label for="recipientEmail">Email address</label>
-                            <input type="email" class="form-control" id="recipientEmail" [(ngModel)]="orderDetail.recipientEmail" name="recipientEmail" #recipientEmail="ngModel" aria-describedby="emailHelp" placeholder="Enter email" required  pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                            <input type="email" class="form-control" id="recipientEmail" [(ngModel)]="orderDetail.recipientEmail" name="recipientEmail" #recipientEmail="ngModel" aria-describedby="emailHelp" type="recipientEmail" placeholder="Enter email" required pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                            <app-form-error-handling [control]="recipientEmail"></app-form-error-handling>
                         </div>   
                     </div>
                     <div class="row">
                         <div class="form-group col col-md-6 col-sm-12 col-xs-12">
                             <label for="recipientContactNumber">Contact Number</label>
-                            <input type="text" class="form-control" id="recipientContactNumber" [(ngModel)]="orderDetail.recipientContactNumber" name="contactNum" #contactNum="ngModel" placeholder="Enter Contact Number" required pattern="^[0-9]+$">
+                            <input type="text" class="form-control" id="recipientContactNumber" [(ngModel)]="orderDetail.recipientContactNumber" name="contactNum" #contactNum="ngModel" placeholder="Enter Contact Number" required type="recipientContactNumber" pattern="^[0-9]+$">
+                            <app-form-error-handling [control]="contactNum"></app-form-error-handling>
                         </div>
                         <div class="form-group col col-md-6 col-sm-12 col-xs-12">
                             <label for="addMessage">Dedication</label>
@@ -71,9 +84,6 @@
                     </div>
                 </div>
             </div>
-        <div class="mt-1 mb-2 col col-md-12 d-flex flex-row-reverse">
-            <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Place Order</button>
-        </div>
     </form>
 </div>
 <div *ngIf="checkOutForm">

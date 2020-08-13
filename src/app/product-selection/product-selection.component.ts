@@ -1,6 +1,5 @@
 import { ProductSelectionService } from './../_shared/services/product-selection.service';
 import { Product } from './../_shared/models/product-model';
-import { ParentComponentApi } from './../app.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { MerchantProductService } from '../_shared/services/merchant-product.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +12,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductSelectionComponent implements OnInit {
 
   @Input() merchantSlug: string;
-  @Input() toOrderForm: ParentComponentApi;
   apiData: any;
   products: any;
   merchantName: string;
@@ -26,17 +24,24 @@ export class ProductSelectionComponent implements OnInit {
     this.LoadProducts();
   }
 
-  LoadProducts(): void{
-    this.merchantProductService.GetMerchantProducts(this.merchantSlug).subscribe(data =>
-      {
-        this.apiData = data;
-        this.products = this.apiData.data;
-        this.merchantName = this.apiData.merchantName;
-      });
+  // tslint:disable-next-line: typedef
+  async LoadProducts(){
+    try{
+    const response = await this.merchantProductService.GetMerchantProducts(this.merchantSlug);
+    console.log('response');
+    console.log(response);
+    this.apiData = response;
+    this.products = this.apiData.data;
+    this.merchantName = this.apiData.merchantName;
+    } 
+    catch{
+      console.log('catch');
+    }
   }
 
   ToOrder(selectedProduct: Product): void{
     this.productSelectService.SetSelectedProduct(selectedProduct);
+    this.productSelectService.selectedMerchantSlug = this.merchantSlug;
     this.router.navigate(['new-order/']);
   }
 

@@ -13,14 +13,17 @@ import { MatSliderModule } from '@angular/material/slider';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProductSelectionComponent } from './product-selection/product-selection.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { SenderFormComponent } from './checkout/sender-form/sender-form.component';
-import { RecipientFormComponent } from './checkout/recipient-form/recipient-form.component';
 import { CheckoutFormComponent } from './checkout/checkout-form/checkout-form.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { ToastrModule } from 'ngx-toastr';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { FormErrorComponent } from './_shared/directives/forms/form-error.directive';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
+import { ErrorResponseComponent } from './error-response/error-response.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +32,14 @@ import { ToastrModule } from 'ngx-toastr';
     NavbarComponent,
     ProductSelectionComponent,
     CheckoutComponent,
-    SenderFormComponent,
-    RecipientFormComponent,
     CheckoutFormComponent,
     ProductDetailComponent,
     PageNotFoundComponent,
-    OrderListComponent
+    OrderListComponent,
+    OrderDetailComponent,
+    FormErrorComponent,
+    LoadingScreenComponent,
+    ErrorResponseComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,8 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     MatSliderModule,
     FormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [MerchantService, NewOrderService, ProductSelectionService, OrderListService],
   bootstrap: [AppComponent]

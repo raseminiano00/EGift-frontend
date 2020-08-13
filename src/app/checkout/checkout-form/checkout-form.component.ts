@@ -38,16 +38,18 @@ export class CheckoutFormComponent implements OnInit {
 
   CheckOut(): void{
     this.isLoading = true;
+    this.orderDetail.quantity = Number(this.orderDetail.quantity);
     this.newOrderService.NewOrder(this.orderDetail).subscribe(data => {
 
       this.isLoading = false;
-
+      console.log(data);
       if (data.isSuccess === false){
         this.ShowErrorNotification('Check Out', 'Error on finalizing your order');
         return;
       }
 
       this.ShowNotification('Check Out', 'Your order has been placed!');
+      this.router.navigate(['orders']);
       });
   }
 
