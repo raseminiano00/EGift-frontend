@@ -38,7 +38,7 @@
                         <div class="form-group col col-md-6 col-sm-12">
                             <label for="senderNameInput">Name</label>
                             <input type="text" class="form-control" id="senderNameInput" placeholder="Enter Name" [(ngModel)]="orderDetail.senderName" name="senderName" 
-                            type="senderName" #senderName="ngModel" required>
+                            type="senderName" #senderName="ngModel" required pattern="^[a-zA-Z.' ë]+$">
                             <app-form-error-handling [control]="senderName"></app-form-error-handling>
                         </div>
                         <div class="form-group col col-md-6 col-sm-12">
@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="form-group col col-md-6 col-sm-12 col-xs-12">
                             <label for="recipientName">Name</label>
-                            <input type="text" class="form-control" id="recipientName" [(ngModel)]="orderDetail.recipientName" name="recipientName" #name="ngModel" placeholder="Enter Name" type="recipientName" required>
+                            <input type="text" class="form-control" id="recipientName" [(ngModel)]="orderDetail.recipientName" name="recipientName" #name="ngModel" placeholder="Enter Name" type="recipientName" required pattern="^[a-zA-Z.' ë]+$">
                             <app-form-error-handling [control]="recipientName"></app-form-error-handling>
                         </div>
                         <div class="form-group col col-md-6 col-sm-12 col-xs-12">

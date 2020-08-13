@@ -10,4 +10,5 @@ export class OrderDetail{
     public senderContactNumber: number;
     public additionalMessage: string;
     public isSuccess: boolean;
+    public productDescription: string;
 }

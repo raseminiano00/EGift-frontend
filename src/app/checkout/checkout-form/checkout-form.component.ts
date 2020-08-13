@@ -41,6 +41,7 @@ export class CheckoutFormComponent implements OnInit {
   async CheckOut(){
     this.isLoading = true;
     this.orderDetail.quantity = Number(this.orderDetail.quantity);
+    this.orderDetail.productDescription = this.selectedProduct.description;
     try{
       const response =  await this.newOrderService.NewOrder(this.orderDetail);
       this.ShowNotification('Check Out', 'Your order has been placed!');
